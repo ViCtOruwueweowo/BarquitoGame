@@ -1,0 +1,53 @@
+<div class="fondo">
+  <div style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;">
+    <div >
+      <div class="container">
+        <h1 class="text-center" style="font-family:'Times New Roman', Times, serif;color: white;">●▬▬▬▬▬๑۩ Registrarme ۩๑▬▬▬▬●</h1>
+        <form [formGroup]="formuser">
+            <div class="form-floating mb-3">
+                <input type="name" class="form-control" formControlName="name"  [(ngModel)]="register.name">
+                <label for="floatingInput">Usuario</label>
+
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger" role="alert">
+                  <div class="alert-danger" *ngIf="name.errors?.['required']">
+                    El campo nombre es requerido.
+                  </div>
+                  <div *ngIf="name.errors?.['minlength']">
+                    Mínimo 3 letras.
+                  </div>
+                </div>
+              </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" formControlName="email" [(ngModel)]="register.email">
+            <label for="floatingInput">Correo Electrónico</label>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger" role="alert">
+              <div *ngIf="email.errors?.['required']">
+                El campo Email es requerido.
+              </div>
+              <div *ngIf="email.errors?.['email']">
+                No tiene el formato de un email.
+              </div>
+            </div>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" formControlName="pass" [(ngModel)]="register.password">
+            <label for="floatingPassword">Contraseña</label>
+            <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="text-danger" role="alert">
+              <div *ngIf="pass.errors?.['required']">
+                El campo Contraseña es requerido.
+              </div>
+              <div *ngIf="pass.errors?.['minlength']">
+                Mínimo 7 caracteres.
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="d-grid gap-2 text-center">
+            <button class="btn btn-danger btn-lg" [disabled]="!formuser.valid" (click)="createUser()" type="submit">Crear Cuenta</button>
+          </div>
+        </form>
+      </div>
+    </div> 
+  </div>
+  
+</div>

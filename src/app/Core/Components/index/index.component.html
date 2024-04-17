@@ -1,0 +1,33 @@
+<div class="fondo" >
+  <div *ngIf="message && !loading" class="alert alert-danger">
+    {{ message }}
+  </div>
+<div style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;">
+  <div >
+    <div class="container">
+      <h1 class="text-center" style="font-family:'Times New Roman', Times, serif;color: white;">●▬▬▬▬▬๑۩ Barquito ۩๑▬▬▬▬●</h1>
+      <hr>
+      <form [formGroup]="formuser" *ngIf="!loading">
+        <div class="form-floating mb-3">
+          <input type="name" class="form-control" formControlName="name" [(ngModel)]="user.name">
+          <label for="floatingInput">Usuario</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" formControlName="pass" [(ngModel)]="user.password">
+          <label for="floatingPassword">Contraseña</label>
+        </div>
+        <br>
+        <div class="d-grid gap-2 text-center">
+          <button class="btn btn-danger btn-lg" [disabled]="!formuser.valid" (click)="login()" type="submit">Iniciar Sesión</button>
+          <hr>
+          <a class="btn btn-light btn-lg"  type="submit" routerLink="/Register">Crear Cuenta</a>
+        </div>
+      </form>
+      <hr>
+    </div>
+  </div> 
+</div>
+<div *ngIf="loading">
+  <img style="height: 350px;" [src]="imageUrl">
+</div>
+</div>

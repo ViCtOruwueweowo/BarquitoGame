@@ -1,0 +1,9 @@
+.fondo{
+    background-image: url('https://64.media.tumblr.com/4455d9c352d2b6eaa8ff3125404553c3/tumblr_pm7zi5g6rq1xqepp2o1_1280.gif');
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+}

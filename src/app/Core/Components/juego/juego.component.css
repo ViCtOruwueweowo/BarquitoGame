@@ -1,0 +1,14 @@
+.fondo{
+   background-image: url('https://opengameart.org/sites/default/files/Preview_143.png');
+   background-size: cover;
+   background-repeat: no-repeat; 
+   background-attachment: fixed;
+   background-position: center;
+   height: 100vh;
+   margin: 0;
+}
+
+@font-face {
+   font-family: 'Pixelade';
+   src: url('../../../../assets/Pixelify_Sans/static/PixelifySans-Regular.ttf'); 
+ }

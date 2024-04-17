@@ -1,0 +1,26 @@
+<div style="position: fixed; bottom: 150px;">
+    <img [@moveImage]="{value: state, params: {speed: speed}}" (click)="handleClick()"
+        src="../../../../assets/lancha.gif" alt="" style="height: 200px; width: 300px;">
+</div>
+
+<div style="position: fixed; bottom: 0; right: 0;">
+    <table class="table table-bordered">
+        <thead style="text-align: end;">
+            <tr style="font-family: 'Pixelade', sans-serif;text-align: end; font-size: medium;">Municion</tr>
+
+        </thead>
+        <tbody *ngIf="showNumber">
+            <tr>
+                <td *ngFor="let image of images" style="background-color: transparent;">
+                    <img src="https://cdn.pixabay.com/photo/2014/04/02/11/00/ammunition-305176_960_720.png" alt=""
+                        style="transform: rotate(90deg); width: 40px; height: auto;">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center" style="position: fixed; bottom: 10px; left: 0;">
+    <button (click)="toggleMovement()" class="btn btn-danger" style="font-family: 'Pixelade', sans-serif;">Comenzar Partida</button>
+</div>
+
