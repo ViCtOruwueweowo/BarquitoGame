@@ -5,22 +5,22 @@
 <div style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;">
   <div >
     <div class="container">
-      <h1 class="text-center" style="font-family:'Times New Roman', Times, serif;color: white;">●▬▬▬▬▬๑۩ Barquito ۩๑▬▬▬▬●</h1>
+      <h1 class="text-center" style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;">●▬▬▬▬▬๑۩ Barquito ۩๑▬▬▬▬●</h1>
       <hr>
       <form [formGroup]="formuser" *ngIf="!loading">
         <div class="form-floating mb-3">
-          <input type="name" class="form-control" formControlName="name" [(ngModel)]="user.name">
-          <label for="floatingInput">Usuario</label>
+          <input type="name" class="form-control" formControlName="name" [(ngModel)]="user.name" style="font-family: 'Pixelade', sans-serif;">
+          <label for="floatingInput" style="font-family: 'Pixelade', sans-serif;">Usuario</label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" formControlName="pass" [(ngModel)]="user.password">
-          <label for="floatingPassword">Contraseña</label>
+          <input type="password" class="form-control" formControlName="pass" [(ngModel)]="user.password" style="font-family: 'Pixelade', sans-serif;">
+          <label for="floatingPassword" style="font-family: 'Pixelade', sans-serif;">Contraseña</label>
         </div>
         <br>
         <div class="d-grid gap-2 text-center">
-          <button class="btn btn-danger btn-lg" [disabled]="!formuser.valid" (click)="login()" type="submit">Iniciar Sesión</button>
+          <button class="btn btn-danger btn-lg" [disabled]="!formuser.valid" (click)="login()" type="submit" style="font-family: 'Pixelade', sans-serif;">Iniciar Sesión</button>
           <hr>
-          <a class="btn btn-light btn-lg"  type="submit" routerLink="/Register">Crear Cuenta</a>
+          <a class="btn btn-light btn-lg"  type="submit" routerLink="/Register" style="font-family: 'Pixelade', sans-serif;">Crear Cuenta</a>
         </div>
       </form>
       <hr>

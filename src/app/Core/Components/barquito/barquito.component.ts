@@ -10,39 +10,62 @@ import { Component } from '@angular/core';
   styleUrl: './barquito.component.css',
   animations: [
     trigger('moveImage', [
-      state('start', style({ transform: 'translateX(0)', opacity: 1 })),
+      state('start', style({ transform: 'translateX(-30vw)', opacity: 1 })),
       state('end', style({ transform: 'translateX(100vw)', opacity: 1 })),
-      transition('* => *', animate('{{speed}}ms ease-in-out')) // Utiliza la interpolación para insertar la velocidad
+      transition('* => *', animate('5000ms ease-in-out')) 
     ])
   ],
 })
 export class BarquitoComponent {
-  state: string = 'start';
-  showNumber: boolean = false;
-  number: number = 7;
-  repeatCount: number = 0;
-  images: number[] = Array(7).fill(0);
-  speed: number = 10000;
+  state = 'start';
+  counter = 0;
+  clickCounter = 0;
+  missClickCounter = 0;
+  clicksAllowed = 2;
+  timer = 5;
 
- toggleMovement() {
-    this.state = (this.state === 'start' ? 'end' : 'start');
-    if (this.state === 'end') {
+  ngOnInit() {
+    this.animateImage();
+  }
+
+  animateImage() {
+    this.state = this.state === 'start' ? 'end' : 'start';
+    this.counter++;
+
+    if (this.counter < 10000) {
       setTimeout(() => {
-        this.state = 'start';
-      }, this.speed + 500); 
+        this.animateImage();
+      }, 5000);
     }
   }
 
-  handleClick() {
-    this.number--;
-    this.images.pop();
-    this.showNumber = true;
-    if (this.state === 'end') {
-      this.state = 'start';
-      setTimeout(() => {
-        this.state = 'end';
-      }, 500);
+  onClick() {
+    if (this.clicksAllowed > 0) {
+      this.clickCounter++;
+      this.clicksAllowed--;
     }
-    this.speed /= 2; 
+
+    if (this.clicksAllowed === 0) {
+      this.startTimer();
+    }
+  }
+
+  onMissClick() {
+    this.missClickCounter++;
+  }
+
+  startTimer() {
+    const interval = setInterval(() => {
+      this.timer--;
+      if (this.timer === 0) {
+        clearInterval(interval);
+        this.resetClicks();
+        this.timer = 5;
+      }
+    }, 1000);
+  }
+
+  resetClicks() {
+    this.clicksAllowed = 2;
   }
 }

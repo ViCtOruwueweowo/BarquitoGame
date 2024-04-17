@@ -21,7 +21,7 @@ public code:Code={
 public veridyCode() {
   this.codeService.code(this.code).subscribe(
     (response) => {
-      this.router.navigate(['/Game']);
+      this.router.navigate(['/Pantalla']);
     }
   );
 }
