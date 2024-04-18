@@ -1,5 +1,8 @@
 <div class="fondo">
-  <div style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;">
+  <div *ngIf="message && !loading" class="alert alert-danger">
+    {{ message }}
+  </div>
+  <div *ngIf="!loading && !message" style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;">
     <div >
       <div class="container">
         <h1 class="text-center" style="font-family: 'Pixelade', sans-serif;color: white;">●▬▬▬▬▬๑۩ Registrarme ۩๑▬▬▬▬●</h1>
@@ -49,5 +52,7 @@
       </div>
     </div> 
   </div>
-  
+  <div *ngIf="loading" style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;">
+    <img style="height: 350px;" [src]="imageUrl">
+  </div>
 </div>

@@ -26,9 +26,18 @@ email:'',
 password:''
 }
 
+loading:boolean=false;
+message:string='';
+imageUrl: string = '';
+
+
 public createUser() {
+  this.message = "Ups Algo Salio Mal, Correo u Contraseña Incorrectos";
+  this.loading = true;
+  this.imageUrl = 'https://media.tenor.com/t5DMW5PI8mgAAAAj/loading-green-loading.gif';
   this.registerService.createService(this.register).subscribe(
     (response) => {
+      this.loading = false;
       window.alert('Registro Exitoso, Activa tu cuenta en: ' + this.register.email);
       this.router.navigate(['']);
     }
