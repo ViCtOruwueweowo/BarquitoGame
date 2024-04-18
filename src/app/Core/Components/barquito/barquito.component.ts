@@ -37,6 +37,7 @@ export class BarquitoComponent {
   animateImage() {
     this.state = this.state === 'start' ? 'end' : 'start';
     this.counter++;
+
     if (this.counter < 10000) {
       setTimeout(() => {
         this.animateImage();
@@ -49,9 +50,11 @@ export class BarquitoComponent {
       this.clickCounter++;
       this.clicksAllowed--;
     }
+
     if (this.clicksAllowed === 0) {
       this.startTimer();
     }
+
     if (this.clickCounter === 6) {
       this.showModal = true;
       this.state = '';
@@ -78,9 +81,15 @@ export class BarquitoComponent {
     this.clicksAllowed = 2;
   }
 
+
   usersList:Users[]=[];
+
   constructor(
     private usersService:UsersService,
   ){}
-  
+
+
+
+
+
 }
