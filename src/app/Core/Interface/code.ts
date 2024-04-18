@@ -1,3 +1,4 @@
 export interface Code {
-    code:string
+    code:string;
+    token?: string;
 }

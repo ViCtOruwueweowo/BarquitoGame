@@ -5,6 +5,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { RegisterService } from '../../Service/register.service';
 import { CodeService } from '../../Service/code.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { Coderesponse } from '../../Interface/coderesponse';
 
 @Component({
   selector: 'app-codigo',
@@ -16,15 +17,25 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 export class CodigoComponent {
 public code:Code={
   code:'',
+  token:'',
 }
 
-public veridyCode() {
-  this.codeService.code(this.code).subscribe(
-    (response) => {
+public verifyCode() {
+  this.codeService.verificarcodigo(this.code).subscribe(
+    (response: Coderesponse) => {
+      const token = response.token;
+      localStorage.setItem('token', token);
       this.router.navigate(['/Pantalla']);
+    },
+    (error) => {
+      console.error('Error al iniciar sesiónes:', error);
+      setTimeout(() => {
+        location.reload(); 
+      }, 2000); 
     }
-  );
+  )
 }
+
 
 constructor(
   private formBuilder:FormBuilder,

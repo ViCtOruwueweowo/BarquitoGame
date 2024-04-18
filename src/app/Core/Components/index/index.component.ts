@@ -30,9 +30,9 @@ constructor(
   imageUrl: string = '';
 
   public login() {
-    this.message = "asdasdsad";
+    this.message = "Ups Algo Salio Mal, Correo u Contraseña Incorrectos";
     this.loading = true;
-    this.imageUrl = 'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700';
+    this.imageUrl = 'https://media.tenor.com/t5DMW5PI8mgAAAAj/loading-green-loading.gif';
     this.userService.login(this.user).subscribe(
       (response) => {
         this.loading = false;
@@ -40,10 +40,12 @@ constructor(
       }
       ,
       (error) => {
+        console.error('Error al iniciar sesiónes:', error);
+        this.message = '¡Ups!, Error En Correo O Contraseña'; 
         this.loading = false;
-        if (error.status === 405) {
-          this.router.navigate(['']);
-        }
+        setTimeout(() => {
+          location.reload(); 
+        }, 2000); 
       }
     );
   }

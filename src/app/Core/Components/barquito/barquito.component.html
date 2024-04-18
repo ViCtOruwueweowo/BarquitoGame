@@ -1,7 +1,16 @@
 <div style="position: fixed; bottom: 150px;" (click)="onMissClick()">
-    <img src="../../../../assets/lancha.gif" [@moveImage]="state" (click)="$event.stopPropagation(); onClick()" alt="" style="height: 200px; width: 300px;">
+    <img *ngIf="!showModal" src="../../../../assets/lancha.gif" [@moveImage]="state"
+        (click)="$event.stopPropagation(); onClick()" alt="" style="height: 200px; width: 300px;">
+</div>
+<div class="container">
+    <h4 style="font-family: 'Pixelade', sans-serif;">Daño En Barco: {{clickCounter}}</h4>
 </div>
 
-<p >Aciertos: {{clickCounter}}</p>
-<p >Fallos: {{missClickCounter}}</p>
-<p>Recarga Disponible En: {{timer}}</p>
+<div class="container">
+    <div *ngIf="showModal" class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <strong>¡Has hecho clic en la imagen 6 veces!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="showModal = false">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+</div>

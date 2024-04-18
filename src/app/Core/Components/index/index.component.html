@@ -2,7 +2,7 @@
   <div *ngIf="message && !loading" class="alert alert-danger">
     {{ message }}
   </div>
-<div style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;">
+<div style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;" *ngIf="!loading && !message">
   <div >
     <div class="container">
       <h1 class="text-center" style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;">●▬▬▬▬▬๑۩ Barquito ۩๑▬▬▬▬●</h1>
@@ -26,8 +26,9 @@
       <hr>
     </div>
   </div> 
+
 </div>
-<div *ngIf="loading">
+<div *ngIf="loading" style="height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center;">
   <img style="height: 350px;" [src]="imageUrl">
 </div>
 </div>

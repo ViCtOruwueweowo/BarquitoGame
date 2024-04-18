@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-iniciar',
@@ -9,5 +9,13 @@ import { RouterLink } from '@angular/router';
   styleUrl: './iniciar.component.css'
 })
 export class IniciarComponent {
+  
+  public logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+  }
 
+  constructor(
+    private router: Router,
+  ) { }
 }

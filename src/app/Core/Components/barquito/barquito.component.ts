@@ -5,14 +5,14 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-barquito',
   standalone: true,
-  imports: [NgIf,NgFor],
+  imports: [NgIf, NgFor],
   templateUrl: './barquito.component.html',
   styleUrl: './barquito.component.css',
   animations: [
     trigger('moveImage', [
       state('start', style({ transform: 'translateX(-30vw)', opacity: 1 })),
       state('end', style({ transform: 'translateX(100vw)', opacity: 1 })),
-      transition('* => *', animate('5000ms ease-in-out')) 
+      transition('* => *', animate('5000ms ease-in-out'))
     ])
   ],
 })
@@ -23,6 +23,7 @@ export class BarquitoComponent {
   missClickCounter = 0;
   clicksAllowed = 2;
   timer = 5;
+  showModal = false;
 
   ngOnInit() {
     this.animateImage();
@@ -47,6 +48,11 @@ export class BarquitoComponent {
 
     if (this.clicksAllowed === 0) {
       this.startTimer();
+    }
+
+    if (this.clickCounter === 6) {
+      this.showModal = true;
+      this.state = '';
     }
   }
 
