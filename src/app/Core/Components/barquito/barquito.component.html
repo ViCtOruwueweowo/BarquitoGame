@@ -8,9 +8,12 @@
 
 <div class="container">
     <div *ngIf="showModal" class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-        <strong>¡Has hecho clic en la imagen 6 veces!</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="showModal = false">
-            <span aria-hidden="true">×</span>
-        </button>
+      <strong style="font-family: 'Pixelade', sans-serif;">¡Barco Derrotado!</strong> 
+      <br>
+      <img src="../../../../assets/corona.gif" alt="" style="height: auto;width: auto;">
+      <br>
+      <strong style="font-family: 'Pixelade', sans-serif;">¡Eres Un Ganador!</strong> 
+      <hr>
+        <a routerLink="/Pantalla"> Da Click Aqui Para Volver</a>
     </div>
 </div>

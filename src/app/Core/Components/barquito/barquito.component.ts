@@ -1,11 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { IniciarComponent } from '../iniciar/iniciar.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-barquito',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, IniciarComponent, RouterLink],
   templateUrl: './barquito.component.html',
   styleUrl: './barquito.component.css',
   animations: [
