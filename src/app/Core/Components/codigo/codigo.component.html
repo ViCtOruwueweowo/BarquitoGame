@@ -4,8 +4,8 @@
           <div class="container">
             <form [formGroup]="formuser">
               <div class="form-floating mb-3">
-                <input  type="text" class="form-control" formControlName="codes"  [(ngModel)]="code.code" >
-                <label for="floatingInput">Codigo De Verificacion</label>
+                <input  type="text" class="form-control" formControlName="codes"  [(ngModel)]="code.code" style="font-family: 'Pixelade', sans-serif;">
+                <label for="floatingInput" style="font-family: 'Pixelade', sans-serif;">Codigo De Verificacion</label>
 
                 <div *ngIf="codes.invalid && (codes.dirty || codes.touched)" class="text-danger" role="alert">
                   <div *ngIf="codes.errors?.['required']">
@@ -21,7 +21,7 @@
               </div>
               <hr>
               <div class="d-grid gap-2 text-center">
-                <button class="btn btn-danger btn-lg"  [disabled]="!formuser.valid" type="submit" (click)="verifyCode()">Enviar Codigo</button>
+                <button class="btn btn-danger btn-lg"  [disabled]="!formuser.valid" type="submit" (click)="verifyCode()" style="font-family: 'Pixelade', sans-serif;">Enviar Codigo</button>
               </div>
             </form>
           </div>

@@ -3,12 +3,13 @@ import { Router, RouterLink } from '@angular/router';
 import { GameService } from '../../Service/game.service';
 import { Game } from '../../Interface/game';
 import { HttpHeaders } from '@angular/common/http';
+import { PantallaCargaComponent } from '../pantalla-carga/pantalla-carga.component';
 
 
 @Component({
   selector: 'app-iniciar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,PantallaCargaComponent],
   templateUrl: './iniciar.component.html',
   styleUrl: './iniciar.component.css'
 })
@@ -30,7 +31,7 @@ export class IniciarComponent {
   ) { }
 
   public crearPartida(){
-    const token = localStorage.getItem('token'); // Asegúrate de reemplazar 'token' con la clave que usaste para almacenar el token en el Local Storage
+    const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     this.gameService.CrearPartida(this.game, headers).subscribe(
       (response)=>{
@@ -40,11 +41,11 @@ export class IniciarComponent {
   }
 
   public entrarPartida(){
-    const token = localStorage.getItem('token'); // Asegúrate de reemplazar 'token' con la clave que usaste para almacenar el token en el Local Storage
+    const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     this.gameService.EntrarPartida(this.game, headers).subscribe(
       (response)=>{
-        this.router.navigate(['/Game'])
+        this.router.navigate(['/Carga'])
       }
     )
   }

@@ -1,20 +1,23 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { IniciarComponent } from '../iniciar/iniciar.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { Users } from '../../Interface/users';
+import { UsersService } from '../../Service/users.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-barquito',
   standalone: true,
-  imports: [NgIf, NgFor, IniciarComponent, RouterLink],
+  imports: [NgIf, NgFor, IniciarComponent, RouterLink,CommonModule,ReactiveFormsModule,FormsModule],
   templateUrl: './barquito.component.html',
   styleUrl: './barquito.component.css',
   animations: [
     trigger('moveImage', [
       state('start', style({ transform: 'translateX(-30vw)', opacity: 1 })),
       state('end', style({ transform: 'translateX(100vw)', opacity: 1 })),
-      transition('* => *', animate('5000ms ease-in-out'))
+      transition('* => *', animate('3500ms ease-in-out'))
     ])
   ],
 })
@@ -34,11 +37,10 @@ export class BarquitoComponent {
   animateImage() {
     this.state = this.state === 'start' ? 'end' : 'start';
     this.counter++;
-
     if (this.counter < 10000) {
       setTimeout(() => {
         this.animateImage();
-      }, 5000);
+      }, 3500);
     }
   }
 
@@ -47,11 +49,9 @@ export class BarquitoComponent {
       this.clickCounter++;
       this.clicksAllowed--;
     }
-
     if (this.clicksAllowed === 0) {
       this.startTimer();
     }
-
     if (this.clickCounter === 6) {
       this.showModal = true;
       this.state = '';
@@ -60,6 +60,7 @@ export class BarquitoComponent {
 
   onMissClick() {
     this.missClickCounter++;
+
   }
 
   startTimer() {
@@ -76,4 +77,10 @@ export class BarquitoComponent {
   resetClicks() {
     this.clicksAllowed = 2;
   }
+
+  usersList:Users[]=[];
+  constructor(
+    private usersService:UsersService,
+  ){}
+  
 }

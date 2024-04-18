@@ -7,12 +7,30 @@
 </div>
 
 <div class="container">
-    <div *ngIf="showModal" class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
       <strong style="font-family: 'Pixelade', sans-serif;">¡Barco Derrotado!</strong> 
       <br>
       <img src="../../../../assets/corona.gif" alt="" style="height: auto;width: auto;">
       <br>
       <strong style="font-family: 'Pixelade', sans-serif;">¡Eres Un Ganador!</strong> 
+      <hr>
+      <table class="table table-bordered table-hover text-center">
+        <thead thead class="table-primary">
+            <tr>
+                <th scope="col">Estadisticas</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of usersList;track $index){
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.wins}}</td>
+                <td>{{item.losses}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
       <hr>
         <a routerLink="/Pantalla"> Da Click Aqui Para Volver</a>
     </div>

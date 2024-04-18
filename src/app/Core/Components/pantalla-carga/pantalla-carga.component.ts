@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pantalla-carga',
@@ -9,4 +10,11 @@ import { Component } from '@angular/core';
 })
 export class PantallaCargaComponent {
 
+  constructor(private router: Router) { }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.router.navigate(['/Game']); 
+    }, 5000);
+  }
 }
