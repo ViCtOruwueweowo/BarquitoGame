@@ -40,7 +40,11 @@ public createUser() {
       this.loading = false;
       window.alert('Registro Exitoso, Activa tu cuenta en: ' + this.register.email);
       this.router.navigate(['']);
-    }
+    },
+  (error)=>{
+    window.alert('Error Al Crear Cuenta');
+    this.router.navigate(['']);
+  },
   );
 }
 get name() {

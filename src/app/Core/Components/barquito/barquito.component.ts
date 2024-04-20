@@ -2,10 +2,12 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { IniciarComponent } from '../iniciar/iniciar.component';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { Users } from '../../Interface/users';
 import { UsersService } from '../../Service/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
 
 @Component({
   selector: 'app-barquito',
@@ -29,9 +31,24 @@ export class BarquitoComponent {
   clicksAllowed = 2;
   timer = 5;
   showModal = false;
+  echo: any;
 
   ngOnInit() {
     this.animateImage();
+    this.echo = new Echo({
+      broadcaster: 'pusher',
+      key: '123', 
+      cluster: 'mt1', 
+      wsHost: '192.168.1.75', 
+      wsPort: 6001, 
+      forceTLS: false,
+      disableStats: true,
+    });
+
+    this.echo.channel('Home') 
+      .listen('message', (data: any) => { 
+        this.animateImage();
+      });
   }
 
   animateImage() {
@@ -63,7 +80,6 @@ export class BarquitoComponent {
 
   onMissClick() {
     this.missClickCounter++;
-
   }
 
   startTimer() {
@@ -81,15 +97,9 @@ export class BarquitoComponent {
     this.clicksAllowed = 2;
   }
 
-
   usersList:Users[]=[];
 
   constructor(
     private usersService:UsersService,
   ){}
-
-
-
-
-
 }

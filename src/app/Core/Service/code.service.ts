@@ -9,13 +9,13 @@ import { Coderesponse } from '../Interface/coderesponse';
 })
 export class CodeService {
 
-  API_URL='http://127.0.0.1:8000/api/verifycode';
+  API_URL='http://192.168.1.75:8000/api/verifycode';
 
   constructor(private httClient:HttpClient) { }
 
   public verificarcodigo(code:Code):Observable<Coderesponse> {
     return this.httClient.post<Coderesponse>(
-      'http://127.0.0.1:8000/api/verifycode',
+      'http://192.168.1.75:8000/api/verifycode',
       code
     );
   }

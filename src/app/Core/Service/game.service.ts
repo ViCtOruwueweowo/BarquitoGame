@@ -11,14 +11,14 @@ export class GameService {
 
   public CrearPartida(game:Game, headers:HttpHeaders) {
     return this.httpClient.post(
-      'http://127.0.0.1:8000/api/game',
+      'http://192.168.1.75:8000/api/game',
       game,{headers}
     );
   }
 
   public EntrarPartida(game:Game, headers:HttpHeaders) {
     return this.httpClient.put(
-      'http://127.0.0.1:8000/api/game',
+      'http://192.168.1.75:8000/api/game',
       game,{headers}
     );
   }
