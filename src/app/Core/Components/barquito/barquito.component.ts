@@ -55,7 +55,7 @@ export class BarquitoComponent {
     this.animateImage();
   this.echo = new Echo({
       broadcaster: 'pusher',
-      key: 'ASDASD123123', 
+      key: 'ASDASD2121', 
       cluster: 'mt1', 
       wsHost: '192.168.1.75', 
       wsPort: 6001, 
