@@ -1,8 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IniciarComponent } from '../iniciar/iniciar.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Users } from '../../Interface/users';
 import { UsersService } from '../../Service/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +33,21 @@ export class BarquitoComponent {
   showModal = false;
   echo: any;
 
-  ngOnInit() {
+  usersList:Users={
+    name:'',
+    wins:'',
+    losses:'',
+  };
+  
+
+  constructor(
+    private usersService:UsersService,
+    private ngZone: NgZone,  
+    private router:Router
+  ){}
+
+  ngOnInit():void{
+    this.getusers();
     this.animateImage();
     this.echo = new Echo({
       broadcaster: 'pusher',
@@ -47,10 +61,20 @@ export class BarquitoComponent {
 
     this.echo.channel('Home') 
       .listen('message', (data: any) => { 
-        this.animateImage();
+        this.ngZone.run(() => {  
+          this.animateImage();
+        });
       });
   }
 
+  getusers(){
+    this.usersService.getUsers().subscribe({
+      next:(result)=>{
+          this.usersList = result.data;
+      }
+  })
+  
+  }
   animateImage() {
     this.state = this.state === 'start' ? 'end' : 'start';
     this.counter++;
@@ -96,10 +120,4 @@ export class BarquitoComponent {
   resetClicks() {
     this.clicksAllowed = 2;
   }
-
-  usersList:Users[]=[];
-
-  constructor(
-    private usersService:UsersService,
-  ){}
 }

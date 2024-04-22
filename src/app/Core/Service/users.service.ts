@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
 import { Users } from '../Interface/users';
 import { Observable } from 'rxjs';
 
@@ -9,12 +8,21 @@ import { Observable } from 'rxjs';
 })
 export class UsersService {
   API_URL: string = 'http://192.168.1.75:8000/api/show';
+  
   constructor(private httpClient:HttpClient) { }
 
-  public getUser(users:Users): Observable<any> {
+  private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.httpClient.get(this.API_URL, { headers });
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
+  public getUser(): Observable<Users> {
+    const headers = this.getHeaders();
+    return this.httpClient.get<Users>(this.API_URL, {headers});
+  }
+
+  public getUsers(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.httpClient.get<Users>(this.API_URL, {headers}).pipe(res => res);
+  }
 }

@@ -9,6 +9,7 @@ export const routes: Routes =
     {path:'Pantalla',loadComponent:()=>import('../app/Core/Components/iniciar/iniciar.component').then(c=>c.IniciarComponent),canActivate:[authGuard]},
     {path:'Carga',loadComponent:()=>import('../app/Core/Components/pantalla-carga/pantalla-carga.component').then(c=>c.PantallaCargaComponent),canActivate:[authGuard]},
     {path:'Game',loadComponent:()=>import('../app/Core/Components/juego/juego.component').then(c=>c.JuegoComponent),canActivate:[authGuard]},
+    {path:'Records',loadComponent:()=>import('../app/Core/Components/records/records.component').then(c=>c.RecordsComponent),canActivate:[authGuard]},
 
 
 
