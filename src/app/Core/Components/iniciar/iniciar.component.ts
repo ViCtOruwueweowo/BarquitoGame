@@ -5,6 +5,7 @@ import { GameService } from '../../Service/game.service';
 import { Game } from '../../Interface/game';
 import { HttpHeaders } from '@angular/common/http';
 import { PantallaCargaComponent } from '../pantalla-carga/pantalla-carga.component';
+import { UsersService } from '../../Service/users.service';
 
 
 @Component({
@@ -29,8 +30,9 @@ export class IniciarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private gameService:GameService, 
-    private websocketService: WebsocketService, // aquí se inyecta el servicio
+    private usersService:UsersService,
+    private gameService:GameService,
+     private websocketService: WebsocketService, // aquí se inyecta el servicio
   ) { }
 
   //ngOnInit() {

@@ -1,13 +1,17 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IniciarComponent } from '../iniciar/iniciar.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Users } from '../../Interface/users';
 import { UsersService } from '../../Service/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Echo from 'laravel-echo';
+(window as any).Echo = Echo;
+
 import Pusher from 'pusher-js';
+(window as any).Pusher = Pusher;
+
 
 @Component({
   selector: 'app-barquito',
@@ -33,13 +37,27 @@ export class BarquitoComponent {
   showModal = false;
   echo: any;
 
-  ngOnInit() {
+  usersList:Users={
+    name:'',
+    wins:'',
+    losses:'',
+  };
+  
+
+  constructor(
+    private usersService:UsersService,
+    private ngZone: NgZone,  
+    private router:Router
+  ){}
+
+  ngOnInit():void{
+    this.getusers();
     this.animateImage();
-    this.echo = new Echo({
+  this.echo = new Echo({
       broadcaster: 'pusher',
-      key: '123', 
+      key: 'ASDASD123123', 
       cluster: 'mt1', 
-      wsHost: '192.168.100.128', 
+      wsHost: '192.168.1.75', 
       wsPort: 6001, 
       forceTLS: false,
       disableStats: true,
@@ -47,10 +65,20 @@ export class BarquitoComponent {
 
     this.echo.channel('Home') 
       .listen('message', (data: any) => { 
-        this.animateImage();
+        this.ngZone.run(() => {  
+          this.animateImage();
+        });
       });
   }
 
+  getusers(){
+    this.usersService.getUsers().subscribe({
+      next:(result)=>{
+          this.usersList = result.data;
+      }
+  })
+  
+  }
   animateImage() {
     this.state = this.state === 'start' ? 'end' : 'start';
     this.counter++;
@@ -61,22 +89,27 @@ export class BarquitoComponent {
       }, 3500);
     }
   }
-
   onClick() {
     if (this.clicksAllowed > 0) {
       this.clickCounter++;
       this.clicksAllowed--;
+  
+      // Enviar un mensaje al WebSocket
+      this.echo.private('Home').whisper('click', {
+        message: 'Se ha hecho clic en el botón'
+      });
     }
-
+  
     if (this.clicksAllowed === 0) {
       this.startTimer();
     }
-
+  
     if (this.clickCounter === 6) {
       this.showModal = true;
       this.state = '';
     }
   }
+  
 
   onMissClick() {
     this.missClickCounter++;
@@ -96,10 +129,4 @@ export class BarquitoComponent {
   resetClicks() {
     this.clicksAllowed = 2;
   }
-
-  usersList:Users[]=[];
-
-  constructor(
-    private usersService:UsersService,
-  ){}
 }
