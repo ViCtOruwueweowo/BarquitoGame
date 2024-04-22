@@ -29,14 +29,9 @@ export class IniciarComponent {
 
   constructor(
     private router: Router,
-<<<<<<< HEAD
     private usersService:UsersService,
     private gameService:GameService,
      private websocketService: WebsocketService, // aquí se inyecta el servicio
-=======
-    private gameService:GameService, 
-    private websocketService: WebsocketService, // aquí se inyecta el servicio
->>>>>>> 170336f760a6269cba3d137c9156c835b3ac8aeb
   ) { }
 
   //ngOnInit() {

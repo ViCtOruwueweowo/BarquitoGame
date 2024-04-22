@@ -7,7 +7,11 @@ import { Users } from '../../Interface/users';
 import { UsersService } from '../../Service/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Echo from 'laravel-echo';
+(window as any).Echo = Echo;
+
 import Pusher from 'pusher-js';
+(window as any).Pusher = Pusher;
+
 
 @Component({
   selector: 'app-barquito',
@@ -49,11 +53,11 @@ export class BarquitoComponent {
   ngOnInit():void{
     this.getusers();
     this.animateImage();
-    this.echo = new Echo({
+  this.echo = new Echo({
       broadcaster: 'pusher',
-      key: '123', 
+      key: 'ASDASD123123', 
       cluster: 'mt1', 
-      wsHost: '192.168.100.128', 
+      wsHost: '192.168.1.75', 
       wsPort: 6001, 
       forceTLS: false,
       disableStats: true,
@@ -85,22 +89,27 @@ export class BarquitoComponent {
       }, 3500);
     }
   }
-
   onClick() {
     if (this.clicksAllowed > 0) {
       this.clickCounter++;
       this.clicksAllowed--;
+  
+      // Enviar un mensaje al WebSocket
+      this.echo.private('Home').whisper('click', {
+        message: 'Se ha hecho clic en el botón'
+      });
     }
-
+  
     if (this.clicksAllowed === 0) {
       this.startTimer();
     }
-
+  
     if (this.clickCounter === 6) {
       this.showModal = true;
       this.state = '';
     }
   }
+  
 
   onMissClick() {
     this.missClickCounter++;
