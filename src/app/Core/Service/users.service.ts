@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsersService {
-  API_URL: string = 'http://192.168.1.75:8000/api/show';
+  //API_URL: string = 'http://192.168.1.75:8000/api/show';
+  API_URL: string = 'http://192.168.100.128:8000/api/show';
   constructor(private httpClient:HttpClient) { }
 
   public getUser(users:Users): Observable<any> {
