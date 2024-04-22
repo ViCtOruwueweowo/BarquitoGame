@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WebsocketService } from '../../../web-socket.service';
+import { WebsocketService } from '../../Service/web-socket.service';
 import { Router, RouterLink } from '@angular/router';
 import { GameService } from '../../Service/game.service';
 import { Game } from '../../Interface/game';
@@ -29,22 +29,34 @@ export class IniciarComponent {
 
   constructor(
     private router: Router,
+<<<<<<< HEAD
     private usersService:UsersService,
     private gameService:GameService,
      private websocketService: WebsocketService, // aquí se inyecta el servicio
+=======
+    private gameService:GameService, 
+    private websocketService: WebsocketService, // aquí se inyecta el servicio
+>>>>>>> 170336f760a6269cba3d137c9156c835b3ac8aeb
   ) { }
 
+  //ngOnInit() {
+  //  this.websocketService.onNewMessage().subscribe(message => {
+  //    console.log("mensaje recibido: ", message);
+  //  });
+  //}
   ngOnInit() {
-    this.websocketService.onNewMessage().subscribe(message => {
-      console.log("mensaje recibido: ", message);
+    this.websocketService.listen('test event').subscribe((data) => {
+      console.log(data);
     });
   }
 
   public crearPartida(){
+    this.websocketService.emit('game start', this.game);
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     this.gameService.CrearPartida(this.game, headers).subscribe(
       (response)=>{
+        this.websocketService.emit('game start', this.game);
         this.websocketService.sendMessage('Partida creada');
         this.router.navigate(['/Game'])
       }

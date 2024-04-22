@@ -53,7 +53,7 @@ export class BarquitoComponent {
       broadcaster: 'pusher',
       key: '123', 
       cluster: 'mt1', 
-      wsHost: '192.168.1.75', 
+      wsHost: '192.168.100.128', 
       wsPort: 6001, 
       forceTLS: false,
       disableStats: true,
