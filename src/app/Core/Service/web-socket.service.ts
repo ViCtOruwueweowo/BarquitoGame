@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import Echo from 'laravel-echo';
 import io from 'socket.io-client';
 import { Observable, Subject } from 'rxjs';
 

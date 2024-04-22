@@ -14,7 +14,8 @@ import { PantallaCargaComponent } from '../pantalla-carga/pantalla-carga.compone
   templateUrl: './iniciar.component.html',
   styleUrl: './iniciar.component.css'
 })
-export class IniciarComponent {
+
+export class IniciarComponent implements OnInit {
   public game:Game={
     player1:'',
     player2:'',
