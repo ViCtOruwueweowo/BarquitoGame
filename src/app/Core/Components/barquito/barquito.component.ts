@@ -95,8 +95,8 @@ export class BarquitoComponent {
       this.clicksAllowed--;
   
       // Enviar un mensaje al WebSocket
-      this.echo.private('Home').whisper('click', {
-        message: 'Se ha hecho clic en el botón'
+      this.echo.private('Home').whisper('message', {
+        message: 'JALAME ESTA'
       });
     }
   
@@ -109,6 +109,7 @@ export class BarquitoComponent {
       this.state = '';
     }
   }
+  
   
 
   onMissClick() {
