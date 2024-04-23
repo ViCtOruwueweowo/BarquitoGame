@@ -93,8 +93,6 @@ export class BarquitoComponent {
     if (this.clicksAllowed > 0) {
       this.clickCounter++;
       this.clicksAllowed--;
-  
-      // Enviar un mensaje al WebSocket
       this.echo.private('Home').whisper('message', {
         message: 'JALAME ESTA'
       });
