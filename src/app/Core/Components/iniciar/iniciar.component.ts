@@ -15,7 +15,8 @@ import { UsersService } from '../../Service/users.service';
   templateUrl: './iniciar.component.html',
   styleUrl: './iniciar.component.css'
 })
-export class IniciarComponent {
+
+export class IniciarComponent implements OnInit {
   public game:Game={
     player1:'',
     player2:'',
