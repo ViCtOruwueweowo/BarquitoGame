@@ -7,6 +7,7 @@ import { Users } from '../../Interface/users';
 import { UsersService } from '../../Service/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Echo from 'laravel-echo';
+import { HttpClient } from '@angular/common/http';
 (window as any).Echo = Echo;
 
 import Pusher from 'pusher-js';
@@ -34,7 +35,9 @@ export class BarquitoComponent {
   missClickCounter = 0;
   clicksAllowed = 2;
   timer = 5;
+  showWinnerModal = false;
   showModal = false;
+  showLoserModal = false;
   echo: any;
 
   usersList:Users={
@@ -47,7 +50,8 @@ export class BarquitoComponent {
   constructor(
     private usersService:UsersService,
     private ngZone: NgZone,  
-    private router:Router
+    private router:Router,
+    private http: HttpClient,
   ){}
 
   ngOnInit():void{
@@ -57,7 +61,7 @@ export class BarquitoComponent {
       broadcaster: 'pusher',
       key: 'ASDASD2121', 
       cluster: 'mt1', 
-      wsHost: '192.168.1.75', 
+      wsHost: '192.168.100.128', 
       wsPort: 6001, 
       forceTLS: false,
       disableStats: true,
@@ -92,12 +96,7 @@ export class BarquitoComponent {
   onClick() {
     if (this.clicksAllowed > 0) {
       this.clickCounter++;
-      this.clicksAllowed--;
-  
-      // Enviar un mensaje al WebSocket
-      this.echo.private('Home').whisper('message', {
-        message: 'JALAME ESTA'
-      });
+      this.clicksAllowed--;  
     }
   
     if (this.clicksAllowed === 0) {
@@ -105,12 +104,37 @@ export class BarquitoComponent {
     }
   
     if (this.clickCounter === 6) {
-      this.showModal = true;
+      this.showWinnerModal = true;
       this.state = '';
+
+      const token = localStorage.getItem('token');
+      //const message = 'JALAME ESTA';
+      // Enviar un mensaje al WebSocket
+      this.echo.private('Home').whisper('message', {
+        token: token
+      });
+
+      console.log(token)
+      //console.log(message);
+
+      this.echo.private('Home').listen('UserDetailEvent', (data: any) => {
+        // Aquí recibes los datos del servidor a través de WebSocket
+        // const user = data.user;
+        console.log(data.user);
+
+        // Ahora puedes hacer una solicitud HTTP a tu ruta con los datos del usuario
+        //this.http.get('/show', { params: { user: data.user } }).subscribe(response => {
+          //console.log(response);
+        //});
+      });
+
+      this.echo.connected(() => {
+        this.echo.private('home').listen('.UserDetailEvent', (data: any) => {
+          console.log(data.user);
+        });
+      });
     }
   }
-  
-  
 
   onMissClick() {
     this.missClickCounter++;
