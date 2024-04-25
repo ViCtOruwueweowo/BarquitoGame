@@ -12,6 +12,7 @@ export class RegisterService {
   public createService(register:Register) {
     return this.httpClient.post(
       'http://192.168.100.128:8000/api/reg',
+      //'http://192.168.126.98:8000/api/reg',
       //'http://192.168.1.75:8000/api/reg',
       register
     );

@@ -41,19 +41,14 @@ export class IniciarComponent implements OnInit {
   //  });
   //}
   ngOnInit() {
-    this.websocketService.listen('test event').subscribe((data) => {
-      console.log(data);
-    });
+  
   }
 
   public crearPartida(){
-    this.websocketService.emit('game start', this.game);
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     this.gameService.CrearPartida(this.game, headers).subscribe(
       (response)=>{
-        this.websocketService.emit('game start', this.game);
-        this.websocketService.sendMessage('Partida creada');
         this.router.navigate(['/Game'])
       }
     )

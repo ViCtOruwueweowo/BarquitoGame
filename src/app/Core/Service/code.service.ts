@@ -17,6 +17,7 @@ export class CodeService {
   public verificarcodigo(code:Code):Observable<Coderesponse> {
     return this.httClient.post<Coderesponse>(
       'http://192.168.100.128:8000/api/verifycode',
+      //'http://192.168.126.98:8000/api/verifycode',
       //'http://192.168.1.75:8000/api/verifycode',
       code
     );

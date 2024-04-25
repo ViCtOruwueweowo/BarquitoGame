@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { IniciarComponent } from '../iniciar/iniciar.component';
 import { Router, RouterLink } from '@angular/router';
 import { Users } from '../../Interface/users';
@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Echo from 'laravel-echo';
 import { HttpClient } from '@angular/common/http';
 (window as any).Echo = Echo;
+import { WebsocketService } from '../../Service/web-socket.service';
 
 import Pusher from 'pusher-js';
 (window as any).Pusher = Pusher;
@@ -28,7 +29,7 @@ import Pusher from 'pusher-js';
     ])
   ],
 })
-export class BarquitoComponent {
+export class BarquitoComponent implements OnInit{
   state = 'start';
   counter = 0;
   clickCounter = 0;
@@ -52,27 +53,20 @@ export class BarquitoComponent {
     private ngZone: NgZone,  
     private router:Router,
     private http: HttpClient,
+    private websocketService: WebsocketService,
   ){}
 
   ngOnInit():void{
     this.getusers();
     this.animateImage();
-  this.echo = new Echo({
-      broadcaster: 'pusher',
-      key: 'ASDASD2121', 
-      cluster: 'mt1', 
-      wsHost: '192.168.100.128', 
-      wsPort: 6001, 
-      forceTLS: false,
-      disableStats: true,
+
+    this.websocketService.getMessages().subscribe((message: any) => {
+      this.ngZone.run(() => {
+        this.animateImage();
+      });
     });
 
-    this.echo.channel('Home') 
-      .listen('message', (data: any) => { 
-        this.ngZone.run(() => {  
-          this.animateImage();
-        });
-      });
+  
   }
 
   getusers(){
@@ -112,7 +106,7 @@ export class BarquitoComponent {
       // Enviar un mensaje al WebSocket
       this.echo.private('Home').whisper('message', {
         token: token
-      });
+      }); 
 
       console.log(token)
       //console.log(message);
