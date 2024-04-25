@@ -6,11 +6,12 @@ import { RegisterService } from '../../Service/register.service';
 import { CodeService } from '../../Service/code.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Coderesponse } from '../../Interface/coderesponse';
+import { MiDirectivaDirective } from '../../../mi-directiva.directive';
 
 @Component({
   selector: 'app-codigo',
   standalone: true,
-  imports: [RouterLink,CommonModule,ReactiveFormsModule,FormsModule,NgFor,NgIf],
+  imports: [RouterLink,CommonModule,ReactiveFormsModule,FormsModule,NgFor,NgIf,MiDirectivaDirective],
   templateUrl: './codigo.component.html',
   styleUrl: './codigo.component.css'
 })

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script>
 
@@ -35,38 +36,70 @@
 
 <table class="table table-warning table-bordred" style="background-color: transparent;">
   <thead>
+=======
+<div class="cursor">
+  <div class="container">
+    <h4 style="font-family: 'Pixelade', sans-serif;color: white;">Daño Al Barco: <b style="color: yellow;">{{clickCounter}}</b> pts.</h4>
+  </div>
+  
+  <!--Movimiento Del Barquito-->
+  <div  style="position: fixed; bottom: 150px;" >
+      <img *ngIf="!showModal" src="../../../../assets/lancha.gif" [@moveImage]="state"
+      (click)="$event.stopPropagation(); onClick()" alt="" style="height: 200px; width: 300px;">  
+  </div>
+  
+  <!--Modal Del Ganador-->
+  <div class="container">
+      <div *ngIf="showWinnerModal"   class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <strong style="font-family: 'Pixelade', sans-serif;">¡Barco Derrotado!</strong> 
+        <br>
+        <img src="../../../../assets/corona.gif" alt="" style="height: auto;width: auto;">
+        <br>
+        <strong style="font-family: 'Pixelade', sans-serif;">¡Eres Un Ganador {{usersList.name}}!</strong> 
+        <hr>
+  <h5 style="font-family: 'Pixelade', sans-serif;">"Historial"</h5>
+  <table class="table table-warning table-bordred" style="background-color: transparent;">
+    <thead>
+        <tr>
+            <td>Victorias</td>
+            <td>Derrotas</td>
+        </tr>
+    </thead>
+    <tbody>
+>>>>>>> 3513bea8a82b6f363b53eb6ef1e6e4f990261133
       <tr>
-          <td>Victorias</td>
-          <td>Derrotas</td>
+        <td>{{usersList.wins}}</td>
+        <td>{{usersList.losses}}</td>
       </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{usersList.wins}}</td>
-      <td>{{usersList.losses}}</td>
-    </tr>
-  </tbody>
-</table>
-
-      <hr>
-        <a routerLink="/Pantalla"> Da Click Aqui Para Volver</a>
-    </div>
-
-    <div *ngIf="showLoserModal"   class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-      <strong style="font-family: 'Pixelade', sans-serif;">¡Barco Derrotado Por El Oponente!</strong> 
-      <br>
-      <img src="../../../../assets/loser.gif" alt="" style="height: auto;width: auto;">
-      <br>
-      <strong style="font-family: 'Pixelade', sans-serif;">¡Has Perdido {{usersList.name}}!</strong> 
-      <hr>
-<h5 style="font-family: 'Pixelade', sans-serif;">"Historial"</h5>
-
-<table class="table table-danger table-bordred" style="background-color: transparent;">
-  <thead>
+    </tbody>
+  </table>
+  
+        <hr>
+          <a routerLink="/Pantalla"> Da Click Aqui Para Volver</a>
+  </div>
+  <!--Modal Del Perdedor-->
+  <div *ngIf="showLoserModal"   class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        <strong style="font-family: 'Pixelade', sans-serif;">¡Barco Derrotado Por El Oponente!</strong> 
+        <br>
+        <img src="../../../../assets/loser.gif" alt="" style="height: auto;width: auto;">
+        <br>
+        <strong style="font-family: 'Pixelade', sans-serif;">¡Has Perdido {{usersList.name}}!</strong> 
+        <hr>
+  <h5 style="font-family: 'Pixelade', sans-serif;">"Historial"</h5>
+  
+  <table class="table table-danger table-bordred" style="background-color: transparent;">
+    <thead>
+        <tr>
+            <td>Victorias</td>
+            <td>Derrotas</td>
+        </tr>
+    </thead>
+    <tbody>
       <tr>
-          <td>Victorias</td>
-          <td>Derrotas</td>
+        <td>{{usersList.wins}}</td>
+        <td>{{usersList.losses}}</td>
       </tr>
+<<<<<<< HEAD
   </thead>
   <tbody>
     <tr>
@@ -81,3 +114,14 @@
     </div>
 </div>
 
+=======
+    </tbody>
+  </table>
+  
+        <hr>
+          <a routerLink="/Pantalla"> Da Click Aqui Para Volver</a>
+      </div>
+  </div>
+  
+</div>
+>>>>>>> 3513bea8a82b6f363b53eb6ef1e6e4f990261133

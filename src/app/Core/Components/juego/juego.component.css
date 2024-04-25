@@ -1,5 +1,5 @@
 .fondo{
-   background-image: url('../../../../assets/backgroundOcean.png');
+   background-image: url('../../../../assets/copyright.gif');
    background-size: cover;
    background-repeat: no-repeat; 
    background-attachment: fixed;
@@ -11,4 +11,8 @@
 @font-face {
    font-family: 'Pixelade';
    src: url('../../../../assets/Pixelify_Sans/static/PixelifySans-Regular.ttf'); 
+ }
+
+ .cursor {
+   cursor: url('../../../../assets/imagenchida.png'), auto;
  }

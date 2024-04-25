@@ -15,3 +15,7 @@
     font-family: 'Pixelade';
     src: url('../../../../assets/Pixelify_Sans/static/PixelifySans-Regular.ttf'); 
   }
+
+.cursor {
+    cursor: url('../../../../assets/imagenchida.png'), auto;
+  }
