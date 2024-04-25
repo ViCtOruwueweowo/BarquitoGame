@@ -18,9 +18,9 @@
         </div>
         <br>
         <div class="d-grid gap-2 text-center">
-          <button class="btn btn-danger btn-lg" [disabled]="!formuser.valid" (click)="login()" type="submit" style="font-family: 'Pixelade', sans-serif;">Iniciar Sesión</button>
+          <button appMiDirectiva class="btn btn-danger btn-lg" [disabled]="!formuser.valid" (click)="login()" type="submit" style="font-family: 'Pixelade', sans-serif;">Iniciar Sesión</button>
           <hr>
-          <a class="btn btn-light btn-lg"  type="submit" routerLink="/Register" style="font-family: 'Pixelade', sans-serif;">Crear Cuenta</a>
+          <a appMiDirectiva class="btn btn-light btn-lg"  type="submit" routerLink="/Register" style="font-family: 'Pixelade', sans-serif;">Crear Cuenta</a>
         </div>
       </form>
       <hr>

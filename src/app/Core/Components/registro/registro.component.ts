@@ -4,11 +4,12 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Register } from '../../Interface/register';
 import { RegisterService } from '../../Service/register.service';
+import { MiDirectivaDirective } from '../../../mi-directiva.directive';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule,RouterModule,NgIf,NgFor,ReactiveFormsModule,RouterLink,FormsModule],
+  imports: [CommonModule,RouterModule,NgIf,NgFor,ReactiveFormsModule,RouterLink,FormsModule,MiDirectivaDirective],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })

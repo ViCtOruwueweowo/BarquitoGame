@@ -6,3 +6,7 @@
   td{
     font-family: 'Pixelade', sans-serif;
   }
+
+  .cursor {
+    cursor: url('../../../../assets/imagenchida.png'), auto;
+  }

@@ -13,8 +13,8 @@ export class GameService {
   public CrearPartida(game:Game, headers:HttpHeaders) {
     this.websocketService.sendMessage('Pasando por CrearPartida');
     return this.httpClient.post(
-      'http://192.168.100.128:8000/api/game',
-      //'http://192.168.1.75:8000/api/game',
+      //'http://192.168.100.128:8000/api/game',
+      'http://192.168.255.70:8000/api/game',
       game,{headers}
     );
   }
@@ -22,8 +22,8 @@ export class GameService {
   public EntrarPartida(game:Game, headers:HttpHeaders) {
     this.websocketService.sendMessage('Pasando por EntrarPartida');
     return this.httpClient.put(
-      'http://192.168.100.128:8000/api/game',
-      //'http://192.168.1.75:8000/api/game',
+      //'http://192.168.100.128:8000/api/game',
+      'http://192.168.255.70:8000/api/game',
       game,{headers}
     );
   }

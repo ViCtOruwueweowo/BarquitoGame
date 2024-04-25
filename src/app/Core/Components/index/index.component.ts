@@ -4,11 +4,12 @@ import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../Service/user.service';
 import { User } from '../../Interface/user';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { MiDirectivaDirective } from '../../../mi-directiva.directive';
 
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [RouterLink,NgIf,NgFor,CommonModule,ReactiveFormsModule],
+  imports: [RouterLink,NgIf,NgFor,CommonModule,ReactiveFormsModule,MiDirectivaDirective],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css'
 })

@@ -1,4 +1,5 @@
 <div class="fondo">
+ 
     <br>
     <h1 class="text-center" style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;">●▬▬▬▬▬๑۩ Barquito ۩๑▬▬▬▬●</h1>
 <br>
@@ -8,10 +9,12 @@
 <br>
 <br>
     <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-outline-warning" (click)="entrarPartida()" style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;font-size:xx-large;" type="button">Buscar Sala</button>
-        <button class="btn btn-outline-warning" (click)="crearPartida()"  style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;font-size:xx-large;" type="button">Generar Partida</button>
-        <a class="btn btn-outline-warning"  style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;font-size:xx-large;" routerLink="/Records" type="button">Historial</a>
+        <button appMiDirectiva class="btn btn-outline-warning" (click)="entrarPartida()" style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;font-size:xx-large;" type="button">Buscar Sala</button>
+        <button appMiDirectiva class="btn btn-outline-warning" (click)="crearPartida()"  style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;font-size:xx-large;" type="button">Generar Partida</button>
+        <a appMiDirectiva class="btn btn-outline-warning"  style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;font-size:xx-large;" routerLink="/Records" type="button">Historial</a>
         <hr>
-        <button class="btn btn-outline-danger" (click)="logout()"  style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;font-size:xx-large;" type="button">Salir</button>
+        <button appMiDirectiva class="btn btn-outline-danger" (click)="logout()"  style="font-family:'Times New Roman', Times, serif;color: white;font-family: 'Pixelade', sans-serif;font-size:xx-large;" type="button">Salir</button>
     </div>
+
+ 
 </div>

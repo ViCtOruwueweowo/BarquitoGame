@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, NgZone } from '@angular/core';
+import { Component, HostListener, NgZone } from '@angular/core';
 import { IniciarComponent } from '../iniciar/iniciar.component';
 import { Router, RouterLink } from '@angular/router';
 import { Users } from '../../Interface/users';
@@ -9,26 +9,28 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Echo from 'laravel-echo';
 import { HttpClient } from '@angular/common/http';
 (window as any).Echo = Echo;
-
 import Pusher from 'pusher-js';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 (window as any).Pusher = Pusher;
 
 
 @Component({
   selector: 'app-barquito',
   standalone: true,
-  imports: [NgIf, NgFor, IniciarComponent, RouterLink,CommonModule,ReactiveFormsModule,FormsModule],
+  imports: [NgIf, NgFor, IniciarComponent, RouterLink,CommonModule,ReactiveFormsModule,FormsModule ],
   templateUrl: './barquito.component.html',
   styleUrl: './barquito.component.css',
   animations: [
     trigger('moveImage', [
-      state('start', style({ transform: 'translateX(-30vw)', opacity: 1 })),
+      state('start', style({ transform: 'translateX(-20vw)', opacity: 1 })),
       state('end', style({ transform: 'translateX(100vw)', opacity: 1 })),
-      transition('* => *', animate('3500ms ease-in-out'))
-    ])
-  ],
-})
+      transition('start => end', animate('2500ms ease-in-out')),
+      transition('end => start', animate('0ms'))
+    ]),]
+  })
 export class BarquitoComponent {
+  audio=new Audio();
+  movenumPosition='start';
   state = 'start';
   counter = 0;
   clickCounter = 0;
@@ -46,7 +48,6 @@ export class BarquitoComponent {
     losses:'',
   };
   
-
   constructor(
     private usersService:UsersService,
     private ngZone: NgZone,  
@@ -55,6 +56,7 @@ export class BarquitoComponent {
   ){}
 
   ngOnInit():void{
+    
     this.getusers();
     this.animateImage();
   this.echo = new Echo({
@@ -83,17 +85,30 @@ export class BarquitoComponent {
   })
   
   }
+
   animateImage() {
     this.state = this.state === 'start' ? 'end' : 'start';
+    this.movenumPosition = this.state;
     this.counter++;
-
+    // let animationSpeed = 2500 - (this.clickCounter * 100);  Es para reducir el tiempo de la animacion, si le metes otro cero la animacion pierde su alineacion con la trancision
+    let animationSpeed = 2500 - (this.clickCounter * 100); 
+    animationSpeed = Math.max(animationSpeed, 0); 
     if (this.counter < 10000) {
       setTimeout(() => {
         this.animateImage();
-      }, 3500);
+      }, animationSpeed);
     }
   }
+  
+  @HostListener('document:click', ['$event'])
+  playSound() {
+    this.audio.src="../../../../assets/pum2.mp3";
+    this.audio.load();
+    this.audio.play();
+  }
+
   onClick() {
+    this.state = this.movenumPosition;
     if (this.clicksAllowed > 0) {
       this.clickCounter++;
       this.clicksAllowed--;
@@ -102,36 +117,29 @@ export class BarquitoComponent {
       });
       this.clicksAllowed--;  
     }
-  
     if (this.clicksAllowed === 0) {
       this.startTimer();
     }
-  
     if (this.clickCounter === 6) {
       this.showWinnerModal = true;
       this.state = '';
-
       const token = localStorage.getItem('token');
       //const message = 'JALAME ESTA';
       // Enviar un mensaje al WebSocket
       this.echo.private('Home').whisper('message', {
         token: token
       });
-
       console.log(token)
       //console.log(message);
-
       this.echo.private('Home').listen('UserDetailEvent', (data: any) => {
         // Aquí recibes los datos del servidor a través de WebSocket
         // const user = data.user;
         console.log(data.user);
-
         // Ahora puedes hacer una solicitud HTTP a tu ruta con los datos del usuario
         //this.http.get('/show', { params: { user: data.user } }).subscribe(response => {
           //console.log(response);
         //});
       });
-
       this.echo.connected(() => {
         this.echo.private('home').listen('.UserDetailEvent', (data: any) => {
           console.log(data.user);
@@ -144,6 +152,7 @@ export class BarquitoComponent {
     this.missClickCounter++;
   }
 
+  //Esto De Aqui Es Para Que Haga El Conteo De Los Tiros
   startTimer() {
     const interval = setInterval(() => {
       this.timer--;
@@ -154,7 +163,7 @@ export class BarquitoComponent {
       }
     }, 1000);
   }
-
+  //Reinicia Los Tiros Luego De 2 Segundos
   resetClicks() {
     this.clicksAllowed = 2;
   }

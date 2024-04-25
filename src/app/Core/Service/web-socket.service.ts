@@ -11,8 +11,7 @@ export class WebsocketService {
   private messagesSubject = new Subject<any>();
 
   constructor() {
-    this.socket = io('http://192.168.100.128:6001'); // Cambia esto a la URL de tu servidor de Laravel Echo
-
+    this.socket = io('http://192.168.255.70:6001'); // Cambia esto a la URL de tu servidor de Laravel Echo
     this.socket.on('connect', () => {
       this.socket.emit('subscribe', {
         channel: 'home', // nombre de canal
