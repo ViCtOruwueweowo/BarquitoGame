@@ -10,14 +10,14 @@ import { Coderesponse } from '../Interface/coderesponse';
 export class CodeService {
 
   //API_URL='http://192.168.100.128:8000/api/verifycode';
-  API_URL='http://192.168.255.70:8000/api/verifycode';
+  API_URL='http://192.168.115.16:8000/api/verifycode';
 
   constructor(private httClient:HttpClient) { }
 
   public verificarcodigo(code:Code):Observable<Coderesponse> {
     return this.httClient.post<Coderesponse>(
     //  'http://192.168.100.128:8000/api/verifycode',
-      'http://192.168.255.70:8000/api/verifycode',
+      'http://192.168.115.16:8000/api/verifycode',
       code
     );
   }

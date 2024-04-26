@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 (window as any).Echo = Echo;
 import Pusher from 'pusher-js';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WebsocketService } from '../../Service/web-socket.service';
 (window as any).Pusher = Pusher;
 
 
@@ -52,21 +53,26 @@ export class BarquitoComponent {
     private usersService:UsersService,
     private ngZone: NgZone,  
     private router:Router,
+    private webSocketService:WebsocketService,
     private http: HttpClient,
   ){}
 
   ngOnInit():void{
-    
-    this.getusers();
     this.animateImage();
-  this.echo = new Echo({
+    this.echo = new Echo({
       broadcaster: 'pusher',
-      key: 'ASDASD2121', 
+      key: 'fd602615a6aa889ee1b3', 
       cluster: 'mt1', 
-      wsHost: '192.168.100.128', 
+      wsHost: '192.168.115.16', 
       wsPort: 6001, 
       forceTLS: false,
       disableStats: true,
+    });
+
+    // Escucha el evento 'NewMessage' en el canal 'home'
+    this.echo.channel('Home').listen('.NewMessage', (data:any) => {
+      console.log('Evento recibido');
+      console.log(data);
     });
 
     this.echo.channel('Home') 
@@ -77,17 +83,10 @@ export class BarquitoComponent {
       });
   }
 
-  getusers(){
-    this.usersService.getUsers().subscribe({
-      next:(result)=>{
-          this.usersList = result.data;
-      }
-  })
-  
-  }
 
   animateImage() {
     this.state = this.state === 'start' ? 'end' : 'start';
+    console.log("EL BARCO DIO LA VUELTA")
     this.movenumPosition = this.state;
     this.counter++;
     // let animationSpeed = 2500 - (this.clickCounter * 100);  Es para reducir el tiempo de la animacion, si le metes otro cero la animacion pierde su alineacion con la trancision
@@ -112,9 +111,10 @@ export class BarquitoComponent {
     if (this.clicksAllowed > 0) {
       this.clickCounter++;
       this.clicksAllowed--;
-      this.echo.private('Home').whisper('message', {
-        message: 'JALAME ESTA'
+      this.echo.private('home').whisper('message', {
+      message: 'JALAME ESTA'
       });
+      console.log(this.echo)
       this.clicksAllowed--;  
     }
     if (this.clicksAllowed === 0) {
@@ -124,21 +124,12 @@ export class BarquitoComponent {
       this.showWinnerModal = true;
       this.state = '';
       const token = localStorage.getItem('token');
-      //const message = 'JALAME ESTA';
-      // Enviar un mensaje al WebSocket
-      this.echo.private('Home').whisper('message', {
+      this.echo.private('home').whisper('message', {
         token: token
       });
       console.log(token)
-      //console.log(message);
-      this.echo.private('Home').listen('UserDetailEvent', (data: any) => {
-        // Aquí recibes los datos del servidor a través de WebSocket
-        // const user = data.user;
+      this.echo.private('home').listen('UserDetailEvent', (data: any) => {
         console.log(data.user);
-        // Ahora puedes hacer una solicitud HTTP a tu ruta con los datos del usuario
-        //this.http.get('/show', { params: { user: data.user } }).subscribe(response => {
-          //console.log(response);
-        //});
       });
       this.echo.connected(() => {
         this.echo.private('home').listen('.UserDetailEvent', (data: any) => {
@@ -166,5 +157,11 @@ export class BarquitoComponent {
   //Reinicia Los Tiros Luego De 2 Segundos
   resetClicks() {
     this.clicksAllowed = 2;
+  }
+
+  listenToChannel() {
+    this.echo.channel('home').listen('NewMessage', (data: any) => {
+      console.log(data);
+    });
   }
 }
