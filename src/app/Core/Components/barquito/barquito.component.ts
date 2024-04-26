@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, HostListener, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener } from '@angular/core';
 import { IniciarComponent } from '../iniciar/iniciar.component';
 import { Router, RouterLink } from '@angular/router';
 import { Users } from '../../Interface/users';
@@ -9,9 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Echo from 'laravel-echo';
 import { HttpClient } from '@angular/common/http';
 (window as any).Echo = Echo;
+import { WebsocketService } from '../../Service/web-socket.service';
+
 import Pusher from 'pusher-js';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WebsocketService } from '../../Service/web-socket.service';
 (window as any).Pusher = Pusher;
 
 
@@ -25,11 +26,11 @@ import { WebsocketService } from '../../Service/web-socket.service';
     trigger('moveImage', [
       state('start', style({ transform: 'translateX(-20vw)', opacity: 1 })),
       state('end', style({ transform: 'translateX(100vw)', opacity: 1 })),
-      transition('start => end', animate('2500ms ease-in-out')),
-      transition('end => start', animate('0ms'))
-    ]),]
-  })
-export class BarquitoComponent {
+      transition('* => *', animate('3500ms ease-in-out'))
+    ])
+  ],
+})
+export class BarquitoComponent implements OnInit{
   audio=new Audio();
   movenumPosition='start';
   state = 'start';
@@ -55,6 +56,7 @@ export class BarquitoComponent {
     private router:Router,
     private webSocketService:WebsocketService,
     private http: HttpClient,
+    private websocketService: WebsocketService,
   ){}
 
   ngOnInit():void{
@@ -126,7 +128,8 @@ export class BarquitoComponent {
       const token = localStorage.getItem('token');
       this.echo.private('home').whisper('message', {
         token: token
-      });
+      }); 
+
       console.log(token)
       this.echo.private('home').listen('UserDetailEvent', (data: any) => {
         console.log(data.user);
